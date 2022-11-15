@@ -1,0 +1,2 @@
+zcat /PHShome/mr953/rivera/Data/07.09.21.Novogene/agseq_out_noext/combined_fastqs/SKNMC_bisox_rep_R1.fastq.gz|head -n 10000 > test_SKNMC_bisox_rep_R1.fastq
+zcat /PHShome/mr953/rivera/Data/07.09.21.Novogene/agseq_out_noext/combined_fastqs/SKNMC_bisox_rep_R2.fastq.gz|head -n 10000 > test_SKNMC_bisox_rep_R2.fastq

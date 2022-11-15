@@ -1,0 +1,21 @@
+site_name: DISPbind
+repo_url: https://github.com/rdong08/DISPbind
+site_description: Documents for DISPbind
+site_author: Rui Dong
+copyright: Copyright (C) 2016-2022 RiveraLab
+pages:
+    - Home: 'index.md'
+    - Tutorial:
+        - 'Installation and Setup': 'tutorial/setup.md'
+        - 'Pipeline': 'tutorial/pipeline.md'
+        - 'Alignment': 'tutorial/alignment.md'
+        - 'Bam2bw': 'tutorial/bam2bw.md'
+        - 'Island': 'tutorial/island.md'
+    - Modules:
+        - 'Align': 'modules/align.md'
+        - 'Bam2bw': 'modules/bam2bw.md'
+        - 'Island': 'modules/island.md'
+    - About:
+        - 'Release Notes': 'about/changelog.md'
+        - 'License': 'about/license.md'
+theme: 'readthedocs'
