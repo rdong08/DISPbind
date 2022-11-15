@@ -8,8 +8,8 @@ Authors: Rui Dong (rdong@mgh.harvard.edu)
 
 ## Features
 
-* Genome mapping and bigwig generation of DisP-seq sequences ([Annotate](modules/annotate.md))
-* Identification of DisP island ([Denovo](modules/denovo.md))
+* Genome mapping and bigwig generation of DisP-seq sequences ([Alignment](modules/align.md))
+* Identification of DisP island ([Island](modules/island.md))
 
 DISPbind documentation is available through https://readthedocs.org/ from [here](http://DISPbind.readthedocs.org), including installation instructions and tutorial.
 
