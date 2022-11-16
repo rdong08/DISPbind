@@ -4,7 +4,7 @@ site_description: Documents for DISPbind
 site_author: Rui Dong
 copyright: Copyright (C) 2016-2022 RiveraLab
 pages:
-    - Home: 'index.md'
+    - Home: 'index.rst'
     - Tutorial:
         - 'Installation and Setup': 'tutorial/setup.md'
         - 'Pipeline': 'tutorial/pipeline.md'
