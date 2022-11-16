@@ -1,4 +1,26 @@
 ```
+site_name: GiniClust3
+repo_url: https://github.com/rdong08/GiniClust3
+site_description: Documents for GiniClust3
+site_author: Rui Dong
+pages:
+    - Home: 'index.md'
+    - Install: 'installation.md'
+    - Tutorial: 'tutorials.md'
+    - Functions:
+        - 'calGini': 'func/calGini.md'
+        - 'clusterGini': 'func/clusterGini.md'
+        - 'calFano': 'func/calFano.md'
+        - 'clusterFano': 'func/clusterFano.md'
+        - 'generateMtilde': 'func/generateMtilde.md'
+        - 'clusterMtilde': 'func/clusterMtilde.md'
+        - 'plotGini': 'func/plotGini.md'
+        - 'plotFano': 'func/plotFano.md'
+    - About:
+        - 'Release Notes': 'about/changelog.md'
+        - 'License': 'about/license.md'
+theme: 'readthedocs'
+
 ```
 DISPbind is a DNA associated disorder protein analysis toolset.
 
