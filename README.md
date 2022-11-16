@@ -4,8 +4,6 @@ A schematic overview of DisP-seq
 -----------------------------------
 <img src="https://github.com/rdong08/DISPbind/blob/main/docs/image/DisP-seq.png" width="1000">
 
-Authors: Rui Dong (rdong@mgh.harvard.edu)
-
 ## Features
 
 * Genome mapping and bigwig generation of DisP-seq sequences ([Alignment](modules/align.md))
