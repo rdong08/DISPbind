@@ -21,7 +21,7 @@ We have developed a tutorial that demonstrates how DISPbind helps you to identif
 
 ## Modules
 
-DISPbind contains 3 modules. Each module functions as an independent component owning its distinctive duty. Meanwhile, they inteact with each other, and different circular RNA analysis pipelines are derived from different combinations of several modules. Understanding the detailed mechanism of each module could facilitate your circular RNA research.
+DISPbind contains 3 modules. 
 
 List of Modules:
 
