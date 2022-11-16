@@ -2,7 +2,7 @@
 
 A schematic overview of DisP-seq
 -----------------------------------
-<img src="https://github.com/rdong08/DISPbind/blob/master/docs/image/DisP-seq.png" width="500">
+<img src="https://github.com/rdong08/DISPbind/blob/main/docs/image/DisP-seq.png" width="500">
 
 Authors: Rui Dong (rdong@mgh.harvard.edu)
 
