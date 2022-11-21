@@ -109,7 +109,7 @@ Format of output `island.test.island`:
 
 ## Citation
 
-Yu-Hang Xing\*, Dong R\*, Lukuo Lee, Shruthi Rengarajan, Nicolò Riggi, Gaylor Boulay and Miguel N. Rivera#. *Under review*
+Yu-Hang Xing\*, Rui Dong\*, Lukuo Lee, Shruthi Rengarajan, Nicolò Riggi, Gaylor Boulay and Miguel N. Rivera#. *Under review*
 
 ## License
 Copyright (C) 2022 Rivera Lab. See [LICENSE](about/license.md) for license rights and limitations (MIT).
