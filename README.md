@@ -4,11 +4,6 @@ A schematic overview of DisP-seq
 -----------------------------------
 <img src="https://github.com/rdong08/DISPbind/blob/main/docs/image/DisP-seq.png" width="1000">
 
-A schematic overview of DISPbind
------------------------------------
-<img src="https://github.com/rdong08/DISPbind/blob/main/docs/image/mapping.png" width="1000">
-<img src="https://github.com/rdong08/DISPbind/blob/main/docs/image/island.png" width="1000">
-
 ## Features
 
 * Genome mapping and bigwig generation of DisP-seq sequences
@@ -35,6 +30,7 @@ pip install DISPbind
  Usage and example:
 -----
 ### Step1: Genome mapping and bigwig generation of DisP-seq sequences
+<img src="https://github.com/rdong08/DISPbind/blob/main/docs/image/mapping.png" width="1000">
 ```
 Usage: DISPbind.py align [options] -i INDEX -a FQ1 -b FQ2 -o OUT -n NAME
 
@@ -78,6 +74,7 @@ macs2 callpeak --nomodel -B --SPMR -f BAMPE -g hs -t Bisox.sorted.deduped.bam -c
 ```
 
 ### Step3: Identify DisP islands from bigwig and peak file
+<img src="https://github.com/rdong08/DISPbind/blob/main/docs/image/island.png" width="1000">
 ```
 Usage: DISPbind.py island [options] -p PEAK (-b BW | -l LIST) -o OUT
 
