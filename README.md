@@ -27,7 +27,7 @@ A schematic overview of DisP-seq
 pip install DISPbind
 ```
 
- Usage and example:
+## Usage and example
 -----
 ### Step1: Genome mapping and bigwig generation of DisP-seq sequences
 <img src="https://github.com/rdong08/DISPbind/blob/main/docs/image/mapping.png" width="1000">
@@ -52,7 +52,7 @@ Options:
 DISPbind align -i bwa_index_hg19/hg19.fa -n test -a test_file/test_SKNMC_bisox_rep_R1.fastq -b test_file/test_SKNMC_bisox_rep_R2.fastq -o test_out -p 1 -g hg19.chrom.sizes
 ```
 
-Transfer Bam file to bigwig file (Only if you do not run the first step and could provide DisP-seq Bam file)
+Transfer Bam file to bigwig file **(Only if you do not run the align step and could provide DisP-seq Bam file)**
 ```
 Usage: DISPbind bam2bw [options] -b bam -n NAME -o OUT
 
