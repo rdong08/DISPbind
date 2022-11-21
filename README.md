@@ -33,7 +33,7 @@ pip install DISPbind
 <img src="https://github.com/rdong08/DISPbind/blob/main/docs/image/mapping.png" width="1000">
 
 ```
-Usage: DISPbind.py align [options] -i INDEX -a FQ1 -b FQ2 -o OUT -n NAME
+Usage: DISPbind align [options] -i INDEX -a FQ1 -b FQ2 -o OUT -n NAME
 
 Options:
     -h --help                      Show help message.
@@ -54,7 +54,7 @@ DISPbind align -i bwa_index_hg19/hg19.fa -n test -a test_file/test_SKNMC_bisox_r
 
 Transfer Bam file to bigwig file (Only if you do not run the first step and could provide DisP-seq Bam file)
 ```
-Usage: DISPbind.py bam2bw [options] -b bam -n NAME -o OUT
+Usage: DISPbind bam2bw [options] -b bam -n NAME -o OUT
 
 Options:
     -h --help                      Show help message.
@@ -79,7 +79,7 @@ macs2 callpeak --nomodel -B --SPMR -f BAMPE -g hs -t Bisox.sorted.deduped.bam -c
 <img src="https://github.com/rdong08/DISPbind/blob/main/docs/image/island.png" width="1000">
 
 ```
-Usage: DISPbind.py island [options] -p PEAK (-b BW | -l LIST) -o OUT
+Usage: DISPbind island [options] -p PEAK (-b BW | -l LIST) -o OUT
 
 Options:
     -h --help                             Show help message.
@@ -92,7 +92,7 @@ Options:
 ```
 
 ```bash
-DISPbind.py island -o island.test -p bisox_peaks.bed -b bisox.sorted.fragments.bw --plot
+DISPbind island -o island.test -p bisox_peaks.bed -b bisox.sorted.fragments.bw --plot
 ```
 
 Format of output `island.test.island`:
