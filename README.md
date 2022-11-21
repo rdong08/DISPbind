@@ -97,14 +97,14 @@ DISPbind.py island -o island.test -p bisox_peaks.bed -b bisox.sorted.fragments.b
 
 Format of output `island.test.island`:
 
-| Field       | Description                       |
-| :---------: | :---------------------------------|
-| Chrom       | Chromosome                        |
-| Start       | Start of DisP merged unit region  |
-| End         | End of DisP merged unit region    |
-| DisP_signal | Sum of DisP signal in merged unit |
-| Rank        | Sum of DisP signal                |
-| Island      | Label of Island or not Island     |
+| Field       | Description                        |
+| :---------: | :----------------------------------|
+| Chrom       | Chromosome                         |
+| Start       | Start of DisP merged region        |
+| End         | End of DisP merged region          |
+| Signal      | Sum of DisP signal in merged region|
+| Rank        | Rank of DisP signal                |
+| Island      | Label Island or not Island         |
 
 
 ## Citation
