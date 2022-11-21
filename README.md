@@ -31,6 +31,7 @@ pip install DISPbind
 -----
 ### Step1: Genome mapping and bigwig generation of DisP-seq sequences
 <img src="https://github.com/rdong08/DISPbind/blob/main/docs/image/mapping.png" width="1000">
+
 ```
 Usage: DISPbind.py align [options] -i INDEX -a FQ1 -b FQ2 -o OUT -n NAME
 
@@ -46,6 +47,7 @@ Options:
     -b FQ2 --fastq2=FQ2            Input R2 file.
     -o OUT --output=OUT            Output directory. [default: alignment]
 ```
+
 ```bash
 DISPbind align -i bwa_index_hg19/hg19.fa -n test -a test_file/test_SKNMC_bisox_rep_R1.fastq -b test_file/test_SKNMC_bisox_rep_R2.fastq -o test_out -p 1 -g hg19.chrom.sizes
 ```
@@ -75,6 +77,7 @@ macs2 callpeak --nomodel -B --SPMR -f BAMPE -g hs -t Bisox.sorted.deduped.bam -c
 
 ### Step3: Identify DisP islands from bigwig and peak file
 <img src="https://github.com/rdong08/DISPbind/blob/main/docs/image/island.png" width="1000">
+
 ```
 Usage: DISPbind.py island [options] -p PEAK (-b BW | -l LIST) -o OUT
 
