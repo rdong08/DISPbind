@@ -34,7 +34,7 @@ setup(name='DISPbind',
       ],
       entry_points={
           'console_scripts': [
-              'CIRCexplorer2=circ2.DISPbind:main'
+              'DISPbind=dispbind.DISPbind:main'
           ],
       },
       )
