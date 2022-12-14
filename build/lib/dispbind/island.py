@@ -19,9 +19,9 @@ import numpy as np
 import pandas as pd
 import argparse
 import re
-sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
-from helper import logger, which
-from signal import fetch_genome_size, fetch_bed_loc, fetch_signal
+import os
+from .helper import logger, which
+from .signal import fetch_genome_size, fetch_bed_loc, fetch_signal
 import seaborn as sns
 import matplotlib.pyplot as plt
 

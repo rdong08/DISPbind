@@ -92,10 +92,10 @@ Options:
 ```
 
 ```bash
-DISPbind island -o island.test -p bisox_peaks.bed -b bisox.sorted.fragments.bw --plot
+DISPbind island -o DisP_island.txt -p bisox_peaks.bed -b bisox.sorted.fragments.bw --plot
 ```
 
-Format of output `island.test.island`:
+Format of output `DisP_island.txt`:
 
 | Field       | Description                        |
 | :---------: | :----------------------------------|

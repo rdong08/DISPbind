@@ -1,5 +1,5 @@
 '''
-Usage: DISPbind.py bam2bw [options] -b bam -n NAME -o OUT
+Usage: DISPbind bam2bw [options] -b bam -n NAME -o OUT
 
 Options:
     -h --help                      Show help message.
@@ -14,9 +14,11 @@ Options:
 import sys
 import os
 import os.path
+import numpy.core.multiarray
 import pysam
 import pybedtools
-from .helper import logger, which
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+from helper import logger, which
 
 __author__ = [
     'Rui Dong (rdong@mgh.harvard.edu)'

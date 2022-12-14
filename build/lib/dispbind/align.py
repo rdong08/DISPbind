@@ -17,11 +17,9 @@ Options:
 import sys
 import os
 import os.path
-import numpy.core.multiarray
 import pysam
 import pybedtools
-sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
-from helper import logger, which
+from .helper import logger, which
 
 __author__ = [
     'Rui Dong (rdong@mgh.harvard.edu)'

@@ -15,9 +15,7 @@ Usage: DISPbind (<command> | --help | --version)
 
 from docopt import docopt
 import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
-from version import __version__
+from .version import __version__
 
 __author__ = 'Rui Dong (rdong@mgh.harvard.edu)'
 
@@ -40,10 +38,10 @@ def main():
     elif sys.argv[1] == '--version' or sys.argv[1] == '-v':
         sys.exit(__version__)
     elif sys.argv[1] == 'align':
-        import align
+        from . import align
         align.align(docopt(align.__doc__, version=__version__))
     elif sys.argv[1] == 'bam2bw':
-        import bam2bw
+        from . import bam2bw
         bam2bw.bam2bw(docopt(bam2bw.__doc__, version=__version__))
     elif sys.argv[1] == 'island':
         import island

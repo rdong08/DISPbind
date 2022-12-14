@@ -9,7 +9,7 @@ setup(name='DISPbind',
       description='Disorder protein genomic binding analysis toolkit',
       author='Rui Dong',
       author_email='rdong@mgh.harvard.edu',
-      url='https://github.com/irdong08/DISPbind',
+      url='https://github.com/rdong08/DISPbind',
       license='MIT',
       classifiers=[
           'Development Status :: 5 - Production/Stable',
@@ -27,14 +27,14 @@ setup(name='DISPbind',
           'pandas>=1.0.5',
           'matplotlib>=3.3.0'
           'numpy>=1.10.0',
-          'docopt'
-          'pyBigWig'
-          'seaborn'
+          'docopt>=0.6.0'
+          'pyBigWig>=0.3.17'
+          'seaborn>=0.10.0'
           'scipy',
       ],
       entry_points={
           'console_scripts': [
-              'CIRCexplorer2=circ2.DISPbind:main'
+              'DISPbind=dispbind.DISPbind:main'
           ],
       },
       )

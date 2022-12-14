@@ -1,27 +1,22 @@
 '''
-Usage: DISPbind align [options] -i INDEX -a FQ1 -b FQ2 -o OUT -n NAME
+Usage: DISPbind bam2bw [options] -b bam -n NAME -o OUT
 
 Options:
     -h --help                      Show help message.
     -v --version                   Show version.
-    -i INDEX --index=INDEX         Index files for BWA
-    -p THREAD --thread=THREAD      Running threads. [default: 10]
     -m MQ --mquality=MQUALITY      Mapping quality. [default: 10]
     -g GSIZE --gsize=GSIZE         Genome size file.
     -n NAME --name=NAME            Output file name. [default: bwa_out]
-    -a FQ1 --fastq1=FQ1            Input R1 file.
-    -b FQ2 --fastq2=FQ2            Input R2 file.
+    -b BAM --bam=BAM               Input BAM file.
     -o OUT --output=OUT            Output directory. [default: alignment]
 '''
 
 import sys
 import os
 import os.path
-import numpy.core.multiarray
 import pysam
 import pybedtools
-sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
-from helper import logger, which
+from .helper import logger, which
 
 __author__ = [
     'Rui Dong (rdong@mgh.harvard.edu)'
@@ -30,16 +25,16 @@ __author__ = [
 __all__ = ['align']
 
 #@logger
-def align(options):
+def bam2bw(options):
     # check index files
-    if not options['--index']:
-        sys.exit('Alignment requires BWA index files!')
-    if not options['--fastq1'] or not options['--fastq2']:
-        sys.exit('Alignment requires paired-end fastq files!')
+    if not options['--bam']:
+        sys.exit('Alignment requires Bam file!')
+    if not options['--gsize']:
+        sys.exit('Alignment requires genome size file!')
 
     # check output directory
     out_dir = check_outdir(options['--output'])
-    bwa_map(out_dir,options['--index'], options['--name'], options['--mquality'], options['--fastq1'], options['--fastq2'], options['--thread'], options['--gsize'])
+    generate_bw(out_dir, options['--name'], options['--mquality'], options['--bam'], options['--gsize'])
 
 def check_outdir(out_dir):
     '''
@@ -53,49 +48,19 @@ def check_outdir(out_dir):
     return dir_path
 
 
-def bwa_map(out_dir, index, name, mquality, fastq1, fastq2, thread, gsize):
+def generate_bw(out_dir, name, mquality, bam, gsize):
     '''
-    1. Map reads with BWA
-    2. Create BigWig file
+    Create BigWig file
     '''
-    # BWA mapping R1
-    print('Map reads with BWA...')
-    bwa_cmd1 = 'bwa aln -t '
-    bwa_cmd1 += ' %s %s %s ' % (thread, index, fastq1)
-    bwa_cmd1 += '> %s/%s 2>/dev/null' % (out_dir, name + '.r1.sai')
-    return_code = os.system(bwa_cmd1) >> 8
-    if return_code:
-        sys.exit('Error: cannot map reads with BWA!')
-    # BWA mapping R2
-    bwa_cmd2 = 'bwa aln -t '
-    bwa_cmd2 += ' %s %s %s ' % (thread, index, fastq2)
-    bwa_cmd2 += '> %s/%s 2>/dev/null' % (out_dir, name + '.r2.sai')
-    return_code = os.system(bwa_cmd2) >> 8
-    if return_code:
-        sys.exit('Error: cannot map reads with BWA!')
-    # BWA sampe
-    bwa_sampe = 'bwa sampe '
-    bwa_sampe += ' %s %s/%s %s/%s ' % (index, out_dir, name + '.r1.sai', out_dir, name + '.r2.sai')
-    bwa_sampe += ' %s %s > %s/%s 2>/dev/null' % (fastq1, fastq2, out_dir, name + '.sam')
-    return_code = os.system(bwa_sampe) >> 8
-    if return_code:
-        sys.exit('Error: cannot map reads with BWA!')
-    print('BWA mapping finished...')
-    # sam to bam
-    sam2bam = 'samtools view -bS'
-    sam2bam += ' %s/%s > %s/%s ' % (out_dir, name + '.sam', out_dir, name + '.raw.bam')
-    return_code = os.system(sam2bam) >> 8
-    if return_code:
-        sys.exit('Error: cannot convert sam to bam file!')
     # selece high quality reads
     filter_bam = 'samtools view -b -F2308 -q '
-    filter_bam += ' %s %s/%s > %s/%s ' % (mquality, out_dir, name + '.raw.bam', out_dir, name + '.bam')
+    filter_bam += ' %s %s > %s/%s ' % (mquality, bam, out_dir, name + '.filter.bam')
     return_code = os.system(filter_bam) >> 8
     if return_code:
         sys.exit('Error: cannot filter bam file!')
     # sort bam
     sort_bam = 'samtools sort -T '
-    sort_bam += ' %s/%s -o %s/%s %s/%s ' % (out_dir, name + '.sorted', out_dir, name + '.sorted.bam', out_dir, name + '.bam')
+    sort_bam += ' %s/%s -o %s/%s %s/%s ' % (out_dir, name + '.sorted', out_dir, name + '.sorted.bam', out_dir, name + '.filter.bam')
     return_code = os.system(sort_bam) >> 8
     if return_code:
         sys.exit('Error: cannot sort bam file!')
@@ -145,11 +110,8 @@ def bwa_map(out_dir, index, name, mquality, fastq1, fastq2, thread, gsize):
                                  bigwig_fname)) >> 8
         if return_code:
             sys.exit('Error: cannot convert bedGraph to BigWig!')
-
-        file2rm = '%s/%s,%s/%s,%s/%s,%s/%s,%s/%s,%s/%s,%s/%s,%s/%s,%s/%s' % (out_dir, name + '.r1.sai', out_dir, name + '.r2.sai', \
-                                                                            out_dir, name + '.sam',out_dir, name + '.bam', \
-                                                                            out_dir, name + '.raw.bam', out_dir, name + '.sorted.bam', \
-                                                                            out_dir, name + '.bg', out_dir, name + '.sorted.bg', out_dir, name + '.bed')
+        file2rm = '%s/%s,%s/%s,%s/%s,%s/%s,%s/%s' % (out_dir, name + '.filter.bam', out_dir, name + '.sorted.bam', \
+                                                     out_dir, name + '.bg', out_dir, name + '.sorted.bg', out_dir, name + '.bed')
         for f in file2rm.strip().split(","):
                 os.remove(f)
     else:
