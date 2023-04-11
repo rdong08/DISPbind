@@ -109,7 +109,7 @@ Format of output `DisP_island.txt`:
 
 ## Citation
 
-Yu-Hang Xing\*, Rui Dong\*, Lukuo Lee, Shruthi Rengarajan, Nicolò Riggi, Gaylor Boulay and Miguel N. Rivera#. **DisP-seq reveals the genome-wide functional organization of DNA-associated disordered proteins** *Under review*
+Yu-Hang Xing\*, Rui Dong\*, Lukuo Lee, Shruthi Rengarajan, Nicolò Riggi, Gaylor Boulay and Miguel N. Rivera#. **DisP-seq reveals the genome-wide functional organization of DNA-associated disordered proteins**, 2023, ***Nature Biotechnol***
 
 ## License
 Copyright (C) 2022 Rivera Lab. See [LICENSE](about/license.md) for license rights and limitations (MIT).
