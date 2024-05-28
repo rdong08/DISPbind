@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: DISPbind
-Version: 1.0.2
+Version: 1.1.0
 Summary: Disorder protein genomic binding analysis toolkit
 Home-page: https://github.com/rdong08/DISPbind
 Author: Rui Dong
@@ -13,3 +13,13 @@ Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3
 License-File: LICENSE.txt
+Requires-Dist: requests
+Requires-Dist: pysam>=0.8.4
+Requires-Dist: pybedtools>=0.7.5
+Requires-Dist: pandas>=1.0.5
+Requires-Dist: matplotlib>=3.3.0
+Requires-Dist: numpy>=1.10.0
+Requires-Dist: docopt>=0.6.0
+Requires-Dist: pyBigWig>=0.3.17
+Requires-Dist: seaborn>=0.10.0
+Requires-Dist: scipy

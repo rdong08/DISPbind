@@ -1,5 +1,5 @@
 '''
-Usage: DISPbind bam2bw [options] -b bam -n NAME -o OUT
+Usage: DISPbind bam2bw [options] -b bam -g genomesize -n NAME -o OUT
 
 Options:
     -h --help                      Show help message.
@@ -62,27 +62,33 @@ def generate_bw(out_dir, name, mquality, bam, gsize):
         sys.exit('Error: cannot filter bam file!')
     # sort bam
     sort_bam = 'samtools sort -T '
-    sort_bam += ' %s/%s -o %s/%s %s/%s ' % (out_dir, name + '.sorted', out_dir, name + '.sorted.bam', out_dir, name + '.filter.bam')
+    #sort_bam += ' %s/%s -o %s/%s %s/%s ' % (out_dir, name + '.sorted', out_dir, name + '.sorted.bam', out_dir, name + '.bam')
+    sort_bam += ' %s/%s -o %s/%s %s/%s ' % (out_dir, name + '.sorted.temp', out_dir, name + '.sorted.bam', out_dir, name + '.filter.bam')
     return_code = os.system(sort_bam) >> 8
     if return_code:
         sys.exit('Error: cannot sort bam file!')
     # remove duplicate
     rm_dup = 'samtools rmdup -s '
-    rm_dup += ' %s/%s %s/%s ' % (out_dir, name + '.sorted.bam', out_dir, name + '.sorted.deduped.bam')
+    rm_dup += ' %s/%s %s/%s ' % (out_dir, name + '.sorted.bam', out_dir, name + '.deduped.bam')
     return_code = os.system(rm_dup) >> 8
     if return_code:
         sys.exit('Error: cannot remove dup!')
     # bam to bedpe and fill gaps
-    bam2bedpe = 'samtools view -b -f2 '
-    bam2bedpe += ' %s/%s | bedtools bamtobed -bedpe 2>/dev/null | cut -f 1,2,6 |sort -k1,1 -k2,2n > %s/%s' % (out_dir, name + '.sorted.deduped.bam', out_dir, name + '.bed')
+    bam2sortn = 'samtools view -b -f2 '
+    bam2sortn += ' %s/%s | samtools sort -n > %s/%s' % (out_dir, name + '.deduped.bam', out_dir, name + '.sorted_n.bam')
+    return_code = os.system(bam2sortn) >> 8
+    if return_code:
+        sys.exit('Error: cannot sort bam file by name!')
+    bam2bedpe = 'bedtools bamtobed -bedpe -i '
+    bam2bedpe += ' %s/%s 2>/dev/null | perl -alne \'print \"$F[0]\\t$F[1]\\t$F[5]\" if $F[5]>$F[1] and $F[0]=~/chr/ and $F[1]>0 and $F[5]>0\' |sort -k1,1 -k2,2n > %s/%s' % (out_dir, name + '.sorted_n.bam', out_dir, name + '.bed')
     return_code = os.system(bam2bedpe) >> 8
     if return_code:
-        sys.exit('Error: cannot remove dup!')
+        sys.exit('Error: cannot convert bam to bedpe!')
 
     # create Bigwig file
     if which('bedGraphToBigWig') is not None:
         print('Create BigWig file...')
-        map_bam_fname = '%s/%s' % (out_dir, name + '.sorted.deduped.bam')
+        map_bam_fname = '%s/%s' % (out_dir, name + '.deduped.bam')
         # index bam if not exist
         if not os.path.isfile(map_bam_fname + '.bai'):
             pysam.index(map_bam_fname)
@@ -97,7 +103,7 @@ def generate_bw(out_dir, name, mquality, bam, gsize):
             for line in map_bed.genome_coverage(bg=True,
                                                 g=gsize,
                                                 scale=s, split=True):
-                value = str(int(float(line[3]) + 0.5))
+                value = str(float(line[3]) + 0.5)
                 bedgraph_f.write('\t'.join(line[:3]) + '\t%s\n' % value)
         # sort bedgraph
         sort_bg = 'LC_COLLATE=C sort -k1,1 -k2,2n %s/%s > %s/%s ' % (out_dir,name + '.bg', out_dir,name + '.sorted.bg')
@@ -112,8 +118,7 @@ def generate_bw(out_dir, name, mquality, bam, gsize):
                                  bigwig_fname)) >> 8
         if return_code:
             sys.exit('Error: cannot convert bedGraph to BigWig!')
-        file2rm = '%s/%s,%s/%s,%s/%s,%s/%s,%s/%s' % (out_dir, name + '.filter.bam', out_dir, name + '.sorted.bam', \
-                                                     out_dir, name + '.bg', out_dir, name + '.sorted.bg', out_dir, name + '.bed')
+        file2rm = '%s/%s,%s/%s,%s/%s,%s/%s,%s/%s,%s/%s' % (out_dir, name + '.filter.bam',out_dir, name + '.sorted_n.bam', out_dir, name + '.sorted.bam', out_dir, name + '.bg', out_dir, name + '.sorted.bg', out_dir, name + '.bed')
         for f in file2rm.strip().split(","):
                 os.remove(f)
     else:
